@@ -1,13 +1,31 @@
-  /**
- * Sample React Native App
+ /**
+ * Sample React Native App  
  * https://github.com/facebook/react-native
  *
  * @format
  * @flow strict-local
  **/
 
-import React from 'react';
-import type {Node} from 'react';
+   import React from 'react';
+   import type { ComponentType, Node } from 'react';
+   
+   type PartialProps = {
+     prop1: string,
+     prop2: number,
+   };
+   
+   type Props = PartialProps & {
+     otherProps: string,
+   };
+   
+   export const partializeComponent = (partialProps: PartialProps) =>
+     (Component: ComponentType<Props>) =>
+       (props: Props): Node => (
+         <Component
+           {...partialProps}
+           {...props}
+         />
+       );
 import {
   SafeAreaView,
   ScrollView,
@@ -70,19 +88,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
+          
           <LearnMoreLinks />
         </View>
       </ScrollView>
